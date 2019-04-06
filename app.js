@@ -2,44 +2,83 @@ new Vue({
     el: '#app',
     data: {
         playerHealth: 80,
-        monsterHealth: 80
+        monsterHealth: 80,
     },
     methods: {
+        checkBelowZero(val) {
+            if (val < 0) {
+                return true;
+            } else {
+                return false;
+            }
+        },
+        humanAttack(attack) {
+            let attackToMonster = Math.floor(Math.random() * -attack);
+            return attackToMonster;
+        },
+        monsterAttack(attack) {
+            let attackFromMonster = Math.floor(Math.random() * -attack);
+            return attackFromMonster
+        },
+        endGame() {
+            if (this.monsterHealth == 0) {
+                return console.log("DONE!");
+            } else {
+                console.log("NOT DONE!")
+            }
+        },
         attackDamage() {
-            let attackToMonster = Math.floor(Math.random() * -10);
-            let attackFromMonster = Math.floor(Math.random() * -7);
-            this.playerHealth >= 0;
-            this.playerHealth = this.playerHealth + attackFromMonster;
-            this.monsterHealth = this.monsterHealth + attackToMonster;
-            console.log("Player Health: " + this.playerHealth);
-            console.log("Monster Health: " + this.monsterHealth);
+            if (this.checkBelowZero(this.playerHealth) || this.checkBelowZero(this.monsterHealth)) {
+                this.monsterHealth = 0;
+                // this.playerHealth = 0;
+                console.log("You've won!");
+                endGame();
+            } else {
+                this.playerHealth = this.playerHealth + this.monsterAttack(7);
+                this.monsterHealth = this.monsterHealth + this.humanAttack(10);
+                console.log("Player Health: " + this.playerHealth);
+                console.log("Monster Health: " + this.monsterHealth);
+            }
         },
         specialAttackDamage: function () {
-            let specialAttackDamageToMonster = Math.floor(Math.random() * -15);
-            let specialAttackDamageFromMonster = Math.floor(Math.random() * -11);
-            this.playerHealth = this.playerHealth + specialAttackDamageFromMonster;
-            this.monsterHealth = this.monsterHealth + specialAttackDamageToMonster;
-            console.log("Player Health: " + this.playerHealth);
-            console.log("Monster Health: " + this.monsterHealth);
+            if (this.checkBelowZero(this.playerHealth) || this.checkBelowZero(this.monsterHealth)) {
+                this.monsterHealth = 0;
+                // this.playerHealth = 0;
+                console.log("You've won");
+                this.endGame();
+            } else {
+                this.playerHealth = this.playerHealth + this.monsterAttack(11);
+                this.monsterHealth = this.monsterHealth + this.humanAttack(15);
+                console.log("Player Health: " + this.playerHealth);
+                console.log("Monster Health: " + this.monsterHealth);
+            }
         },
         healPlayer: function () {
             let healPlayer = Math.floor(Math.random() * 11);
             let attackPlayerWhileHealing = Math.floor(Math.random() * -4);
             this.playerHealth = this.playerHealth + healPlayer + attackPlayerWhileHealing;
-            console.log("Player Health " + this.playerHealth);
+            console.log("Player Health: " + this.playerHealth);
+        },
+        giveUp() {
+            this.playerHealth = 0;
+            // this.monsterHealth;
         },
         reset() {
-            this.playerHealth = 80,
-            this.monsterHealth = 80
-        }
+            this.playerHealth = 80;
+            this.monsterHealth = 80;
+        },
+
     },
     computed: {
         healthPlayer() {
-            return {width: this.playerHealth + '%'}
+            return {
+                width: this.playerHealth + '%'
+            }
         },
         healthMonster() {
-            return {width: this.monsterHealth + '%'}
+            return {
+                width: this.monsterHealth + '%'
+            }
         }
     }
-
 });

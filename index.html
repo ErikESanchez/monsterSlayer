@@ -28,7 +28,7 @@
         </section>
         <section class="row controls">
             <div class="small-12 columns">
-                <button id="start-game">START NEW GAME</button>
+                <button id="start-game" @click="reset">START NEW GAME</button>
             </div>
         </section>
         <section class="row controls">
@@ -36,7 +36,7 @@
                 <button id="attack" @click="attackDamage">ATTACK</button>
                 <button id="special-attack" @click="specialAttackDamage">SPECIAL ATTACK</button>
                 <button id="heal" @click="healPlayer">HEAL</button>
-                <button id="give-up" @click="reset">GIVE UP</button>
+                <button id="give-up" @click="giveUp">GIVE UP</button>
             </div>
         </section>
         <section class="row log">
